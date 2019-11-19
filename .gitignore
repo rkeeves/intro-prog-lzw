@@ -35,4 +35,5 @@
 bin
 obj
 temp
+build
 packages
