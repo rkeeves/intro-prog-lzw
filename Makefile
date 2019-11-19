@@ -9,7 +9,7 @@ else
 	APP     = lzwtree.exe
 endif
 SRC_DIR   = src
-BUILD_DIR = build
+BUILD_DIR = ./build
 CXX       = g++
 CXXFLAGS  = -std=c++11 -Wpedantic -Wall -Wextra -Werror
 RM        = rm -f
