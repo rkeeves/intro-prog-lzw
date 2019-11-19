@@ -58,7 +58,7 @@ private:
 	void traverse_postorder(const std::shared_ptr<SPNode> &n, bool n_isrhs, int depth, F f);
 	
 	template<typename F>
-	void traverse_leafs(const std::shared_ptr<SPNode> &n, bool n_isrhs, int depth, F f);
+	void traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f);
 
 protected:
 	std::shared_ptr<SPNode> root_;
@@ -89,7 +89,7 @@ void SPTree::traverse_postorder(F f)
 template<typename F>
 void SPTree::traverse_leafs(F f)
 { 
-	traverse_leafs(root(),false, 0, f);
+	traverse_leafs(root(), 0, f);
 }
 
 
@@ -127,14 +127,14 @@ void SPTree::traverse_postorder(const std::shared_ptr<SPNode> &n, bool n_isrhs, 
 
 
 template<typename F>
-void SPTree::traverse_leafs(const std::shared_ptr<SPNode> &n, bool n_isrhs, int depth, F f)
+void SPTree::traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f)
 {
 	if(n){
 		if(false == n->any()){
-			f(n_isrhs,depth);
+			f(depth);
 		}else{
-			traverse_leafs(n->get(true),true,depth+1,f);
-			traverse_leafs(n->get(false),false,depth+1,f);
+			traverse_leafs(n->get(true),depth+1,f);
+			traverse_leafs(n->get(false),depth+1,f);
 		}
 	}
 }

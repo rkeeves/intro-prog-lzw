@@ -29,7 +29,7 @@ void LzwSPTree::get_leafCount_maxDepth(int &leafCount, int &maxDepth)
 {
 	leafCount = 0;
 	maxDepth = 0;
-	auto leafDepthCounter = [&leafCount,&maxDepth](bool n_isrhs, int depth)
+	auto leafDepthCounter = [&leafCount,&maxDepth](int depth)
 													{ 
 														leafCount++;
 														if(maxDepth < depth) { maxDepth = depth;}
@@ -43,7 +43,7 @@ void LzwSPTree::get_meanDepth(int leafCount, double &meanDepth)
 {
 	meanDepth = 0.0;
 	if(leafCount == 0) return;
-	auto meanDepthCounter =[leafCount,&meanDepth](bool n_isrhs, int depth)
+	auto meanDepthCounter =[leafCount,&meanDepth](int depth)
 													{ 
 														meanDepth += static_cast<double>(depth)/leafCount;
 													};
@@ -56,7 +56,7 @@ void LzwSPTree::get_varDepth(int leafCount, double meanDepth, double &varDepth)
 {
 	varDepth= 0.0;
 	if(leafCount == 0) return;
-	auto varDepthCounter = [meanDepth,&varDepth](bool n_isrhs, int depth)
+	auto varDepthCounter = [meanDepth,&varDepth](int depth)
 													{ 
 														double t = static_cast<double>(depth) - meanDepth;
 														varDepth += ( t * t);

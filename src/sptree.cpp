@@ -3,10 +3,10 @@
 namespace lzw{
 	
 	
-SPTree::SPTree() : root_(std::make_shared<SPNode>()){ };
+SPTree::SPTree() : root_(std::make_shared<SPNode>()){ }
  
 
-SPTree::~SPTree (){ };
+SPTree::~SPTree (){ }
 
 
 std::shared_ptr<SPNode> SPTree::root() const 

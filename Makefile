@@ -11,7 +11,7 @@ endif
 SRC_DIR   = src
 BUILD_DIR = ./build
 CXX       = g++
-CXXFLAGS  = -std=c++11 -Wpedantic -Wall -Wextra -Werror
+CXXFLAGS  = -std=c++14 -Wpedantic -Wall -Wextra -Werror
 RM        = rm -f
 MKDIR     = mkdir -p
 SRCS      = $(wildcard $(SRC_DIR)/*.cpp)
@@ -28,7 +28,7 @@ $(BUILD_DIR)/$(APP): $(OBJS)
 
 $(BUILD_DIR)/%.o : %.cpp
 	$(MKDIR) -p $(@D)
-	$(CXX) $(CXX_FLAGS) -MMD -c $< -o $@
+	$(CXX) $(CXXFLAGS) -MMD -c $< -o $@
 
 .PHONY : clean
 clean :

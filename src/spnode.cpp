@@ -2,9 +2,9 @@
 
 namespace lzw{
 
-	SPNode::SPNode() : lhs_(nullptr), rhs_(nullptr){ };
+	SPNode::SPNode() : lhs_(nullptr), rhs_(nullptr){ }
 	
-	SPNode::~SPNode (){  };
+	SPNode::~SPNode (){  }
 	
 
 	bool SPNode::test(bool rhs) const 
