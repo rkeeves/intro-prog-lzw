@@ -7,6 +7,14 @@ The goal was only to excercise basic cpp, therefore its performance is **BAD**.
 Provided a makefile, **BUT YOU MUST TUNE IT FOR LINUX**.
 This is due to the fact that with mingw on win, the executable extension is needed.
 ## Run
+Examples:
+./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b
+-b is used to interpret char '1' as a true bit and '0' as a false bit.
+./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b -t 1
+-t with the value 1 results in a preorder printout.
+./lzwtree ./sample/medium_nonbit.txt -o ./temp/medium_nonbit.out
+Dont use -b for medium_nonbit.txt because we want those characters to be treated as 8 separate bits.
+ 
 If you dont provide any cl args, then the app will print to cout the usage.
 Sample folder provides two example source files and an example output.
 1. tiny_bit.txt - (Input) This is a small example based on nbatfai's blog. [Labormeres Otthon](https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat) 
