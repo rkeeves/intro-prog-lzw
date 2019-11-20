@@ -12,8 +12,11 @@ Makefile will write the executable (and objs, defs)  to `./build`.
 
 ## Run
 Examples:
+
 `./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b`
+
 `./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b -t 1`
+
 `./lzwtree ./sample/medium_nonbit.txt -o ./temp/medium_nonbit.out`
 
 * `-b` is used to interpret char '1' as a true bit and '0' as a false bit.
