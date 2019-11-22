@@ -2,20 +2,16 @@
 
 namespace lzw{
 
+const std::string Args::DEFAULT_OPT = "";
+
+
 Args::Args(int argc, char **argv) : argc(argc), argv_head(argv)
 {
 	parse();
 }
 
-Args::~Args()
-{
-	
-}
+int Args::argcount() const { return argc; }
 
-int Args::count() const
-{
-	return argc;
-}
 
 const std::string Args::operator[](int i) const
 {
@@ -26,17 +22,14 @@ const std::string Args::operator[](int i) const
 	}
 }
 	
-bool Args::hasOpt(const std::string &opt) const
+	
+bool Args::has_opt(const std::string &opt) const
 {
 	return optvals.find(opt) != optvals.end();
 }
 
-const std::vector<std::string> & Args::getOpt() const
-{
-	return optvals.find(DEFAULT_OPT_KEY)->second;
-}
 
- const std::vector<std::string> & Args::operator[](const std::string &opt) const
+const std::vector<std::string> & Args::operator[](const std::string &opt) const
 {
 	auto it = optvals.find(opt);
 	if(it == optvals.end()){
@@ -46,14 +39,15 @@ const std::vector<std::string> & Args::getOpt() const
 	}
 }
 
+
 void Args::parse()
 {
-	optvals[DEFAULT_OPT_KEY] = std::vector<std::string>();
+	optvals[DEFAULT_OPT] = std::vector<std::string>();
 	char **cur_arg_ptr = argv_head;
-	std::string lastGroup = DEFAULT_OPT_KEY;
+	std::string lastGroup = DEFAULT_OPT;
 	for(int i = 0; i < argc; ++i){
 		std::string s(*cur_arg_ptr);
-		if(isOpt(s)){
+		if(is_opt(s)){
 			optvals[s] = std::vector<std::string>();
 			lastGroup = s;
 		}else{
@@ -62,8 +56,9 @@ void Args::parse()
 		cur_arg_ptr++;
 	}
 }
-	
-bool Args::isOpt(const std::string &s) const
+
+
+bool Args::is_opt(const std::string &s) const
 {
 	return (s.size() > 1 && s[0] == '-');
 }

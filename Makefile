@@ -2,12 +2,7 @@
 # Makefile for LzwTree
 # Using -MMD to generate dependencies by the compiler
 # *****************************************************
-UNAME := $(shell uname)
-ifeq ($(UNAME), Linux)
-	APP     = lzwtree
-else
-	APP     = lzwtree.exe
-endif
+APP       = lzwtree.exe
 SRC_DIR   = src
 BUILD_DIR = ./build
 CXX       = g++

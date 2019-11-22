@@ -4,26 +4,24 @@
 #include <memory> // for smart pointers
 
 namespace lzw{
-/**
- * SPNode
- *
- *
- */
 class SPNode
 {
-	
+// [LIFECYCLE]
 public:
 
 	SPNode();
 	
-	~SPNode ();
+	~SPNode () = default;
+
+	SPNode (const SPNode&) = delete;
+
+	SPNode& operator= (const SPNode&) = delete;
 	
-private: 
+	SPNode (const SPNode&&) = delete;
 
-	SPNode (const SPNode &);
-
-	SPNode & operator= (const SPNode &);
-
+	SPNode& operator= (const SPNode&&) = delete;
+	
+// [ACCESSORS]
 public:
 
 	bool test(bool rhs) const;
@@ -34,8 +32,11 @@ public:
 	
 	std::shared_ptr<SPNode> get(bool rhs) const;
 	
-	std::shared_ptr<SPNode> set(bool rhs);
+// [MODIFIERS]
+public:
+	std::shared_ptr<SPNode> set(bool rhs, const std::shared_ptr<SPNode>& sp);
 	
+// [STATE]
 private:
 	
 	std::shared_ptr<SPNode> lhs_;

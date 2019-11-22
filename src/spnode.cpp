@@ -3,10 +3,22 @@
 namespace lzw{
 
 	SPNode::SPNode() : lhs_(nullptr), rhs_(nullptr){ }
-	
-	SPNode::~SPNode (){  }
-	
+/*	
+	~SPNode ()
+	{
 
+	}
+
+	SPNode (const SPNode& o)
+	{
+		rhs_.r = 
+	}
+
+	SPNode& operator= (const SPNode& o)
+	{
+		
+	}
+	*/
 	bool SPNode::test(bool rhs) const 
 	{
 		return (rhs) ? static_cast<bool>(rhs_) : static_cast<bool> (lhs_);
@@ -27,9 +39,9 @@ namespace lzw{
 		return rhs ? rhs_ : lhs_; 
 	}
 	
-	std::shared_ptr<SPNode> SPNode::set(bool rhs)
+	std::shared_ptr<SPNode> SPNode::set(bool rhs, const std::shared_ptr<SPNode>& sp)
 	{
-		return (rhs) ? ( rhs_ = std::make_shared<SPNode>() ) : ( lhs_ = std::make_shared<SPNode>() );
+		return (rhs) ? ( rhs_ = sp ) : ( lhs_ = sp );
 	}
 	
 } /* end of namespace lzw */

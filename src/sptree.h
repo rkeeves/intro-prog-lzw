@@ -4,36 +4,31 @@
 #include "spnode.h"
 
 namespace lzw{
-/**
- * SPTree
- *
- *
- */
 class SPTree
 {
+// [LIFECYCLE]
 public:
   SPTree();
   
-  ~SPTree ();
-	
-private: 
+  virtual ~SPTree () = default; 
 
-  SPTree (const SPTree &);
+  SPTree (const SPTree &) = delete;
   
-  SPTree & operator= (const SPTree &);
+  SPTree& operator= (const SPTree&) = delete;
 	
+	SPTree (const SPTree &&) = delete;
+	
+	SPTree& operator= (const SPTree&&) = delete;
+	
+// [ACCESSORS]
 public:
 	
 	std::shared_ptr<SPNode> root() const;
 	
 	std::shared_ptr<SPNode> get(const std::shared_ptr<SPNode> &n, bool rhs) const;
-	
-public:
 
-	void set(std::shared_ptr<SPNode> &n, bool rhs);
-	
+// [TRAVERSALS]
 public:
-
 	template<typename F>
 	void traverse_inorder(F f);
 	
@@ -46,6 +41,11 @@ public:
 	template<typename F>
 	void traverse_leafs(F f);
 	
+// [MODIFIERS]
+public:
+	void set(std::shared_ptr<SPNode> &n, bool rhs, const std::shared_ptr<SPNode> &child);
+
+// [INTERNALS]
 private:
 
 	template<typename F>
@@ -60,6 +60,7 @@ private:
 	template<typename F>
 	void traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f);
 
+// [STATE]
 protected:
 	std::shared_ptr<SPNode> root_;
 };/* SPTree */
@@ -138,5 +139,34 @@ void SPTree::traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f)
 		}
 	}
 }
+
+
+class SPTreeBuilder{
+// [LIFECYCLE]
+public:
+  SPTreeBuilder(SPTree &tree);
+  
+  virtual ~SPTreeBuilder () = default; 
+
+  SPTreeBuilder (const SPTreeBuilder &) = delete;
+  
+  SPTreeBuilder& operator= (const SPTreeBuilder&) = delete;
+	
+	SPTreeBuilder (const SPTreeBuilder &&) = delete;
+	
+	SPTreeBuilder& operator= (const SPTreeBuilder&&) = delete;
+	
+// [MODIFIERS]
+public:
+	SPTreeBuilder& operator<< (bool rhs);
+	
+// [STATE]
+private:
+	
+	SPTree &tree_;
+	
+	std::shared_ptr<SPNode> last_;
+};/* SPTreeBuilder */
+
 } /* end of namespace lzw */
 #endif // LZW_SPTREE_H

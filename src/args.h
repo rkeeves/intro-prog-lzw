@@ -30,46 +30,52 @@ namespace lzw{
   // "-h"   {}
   //
 class Args{
-	
+// [LIFECYCLE]
 public:
 	Args(int argc, char **argv);
 	
-	~Args();
-	
-private:
+	~Args() = default;
 
-	Args (const Args &);
+	Args (const Args &) = delete;
 	
-	Args & operator= (const Args &);
+	Args& operator= (const Args&) = delete;
 	
-// PUBLIC FUNCS
+	Args (Args&&) noexcept = delete;
+	
+	Args& operator= (Args&&) = delete;
+	
+// [ACCESSORS]
 public: 
 
-	const std::string DEFAULT_OPT_KEY = "";
-
-	int count() const;
+	static const std::string DEFAULT_OPT;
+	
+	int argcount() const;
 	
 	const std::string operator[](int i) const;
 
-	bool hasOpt(const std::string &opt) const;
+	bool has_opt(const std::string &opt) const;
 
-	const std::vector<std::string> &getOpt() const;
+	const std::vector<std::string> &get_default_opt() const;
 	
 	const std::vector<std::string> & operator[](const std::string &opt) const;
 
-// PRIVATE FUNCS
+// [MODIFIERS]
+public:
+
+// [INTERNALS]
 private:
 
 	void parse();
 
-	bool isOpt(const std::string &s) const;
-// PRIVATE FIELDS
+	bool is_opt(const std::string &s) const;
+	
+// [STATE]
 private:
-
+	
 	int argc;
-
+	
 	char **argv_head;
-
+	
 	std::map<std::string,std::vector<std::string>> optvals;
 };
 
