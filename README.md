@@ -13,16 +13,18 @@ Makefile will write the executable (and objs, defs)  to `./build`.
 ## Run
 Examples:
 
-`./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b`
+`cmd ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b`
 
-`./lzwtree ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b -t 1`
+In the above command `-b` is used to interpret char '1' as a true bit and '0' as a false bit.
 
-`./lzwtree ./sample/medium_nonbit.txt -o ./temp/medium_nonbit.out`
+`cmd ./sample/tiny_bit.txt -o ./temp/tiny_bit.out -b -t postorder`
 
-* `-b` is used to interpret char '1' as a true bit and '0' as a false bit.
-* `-t` with the value **1** results in a **preorder** printout.
-* `-t` with the value **2** results in a **postorder** printout.
-* `-t` not 1 or 2, or unspecified results in an **inorder** printout.
+In the above command `-t` is used to with value `postorder`, so this will print results in a **postorder**.
+
+`cmd ./sample/medium_nonbit.txt -o ./temp/medium_nonbit.out`
+
+In the above command `-b` is NOT used therefore the different characters will be treated as 8 separate bits.
+
 
 If you make a mistake an error will be thrown and the usage will be printed out.
 

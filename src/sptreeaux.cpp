@@ -95,23 +95,17 @@ void fill_tree(std::istream &is, SPTree &tree, bool inputAsBitStream, int maxByt
 			if (b == '>'){
 					inComment = true;
 					continue;
-			}
-			if (b == '\n'){
+			}else if (b == '\n'){
 					inComment = false;
 					continue;
-			}
-			if (inComment || b == 'N'){
+			}else if (inComment || b == 'N'){
 				continue;
 			}
-			if(byteCounter > maxBytesToRead && maxBytesToRead > 0){
-				break;
-			}
+			
+      if( ( maxBytesToRead > 0 ) && (byteCounter > maxBytesToRead) ){break;}
+			
 			if(! inputAsBitStream){
-				if (b == '0'){ 
-					builder << false;
-				}else{
-					builder << true;
-				}
+				builder << ((b == '0') ? false : true);
 			}else{
 				for (int i = 0; i < 8; ++i)
 				{
