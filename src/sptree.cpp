@@ -1,26 +1,43 @@
 #include "sptree.h"
 
 namespace lzw{
-	
+
 	
 SPTree::SPTree() : root_(std::make_shared<SPNode>()){ }
 
 
+SPTree::~SPTree (){}
+
+
+SPTree::SPTree(const SPTree &o) : root_(o.root_){}
+  
+
+SPTree& SPTree::operator=(const SPTree&o)
+{
+	root_ = o.root_;
+	return *this;
+}
+
+
+SPTree::SPTree(const SPTree &&o) : root_(std::move(o.root_)) {}
+
+
+SPTree& SPTree::operator=(const SPTree&& o)
+{
+	root_ = std::move(o.root_);
+	return *this;
+}
+	
+
 std::shared_ptr<SPNode> SPTree::root() const 
 { 
-	return root_; 
+	return root_;
 }
 	
 
-std::shared_ptr<SPNode> SPTree::get(const std::shared_ptr<SPNode> &n, bool rhs) const 
+void SPTree::add(std::shared_ptr<SPNode> &n, bool rhs)
 { 
-	return (n) ? n->get(rhs) : n; 
-}
-	
-
-void SPTree::set(std::shared_ptr<SPNode> &n, bool rhs, const std::shared_ptr<SPNode> &child)
-{ 
-	if(n){ n->set(rhs,child); } 
+	if(n){ n->set(rhs,std::make_shared<SPNode>()); } 
 }
 
 
@@ -29,12 +46,14 @@ SPTreeBuilder::SPTreeBuilder(SPTree &tree) : tree_(tree), last_(tree_.root()) {}
 
 SPTreeBuilder& SPTreeBuilder::operator<< (bool rhs)
 {
-	auto child = tree_.get(last_,rhs);
-	if(child){
-		last_ = child;
-	}else{
-		tree_.set(last_,rhs, std::make_shared<SPNode>());
-		last_ = tree_.root();
+	if(last_){
+		auto child = last_->get(rhs);
+		if(child){
+			last_ = std::move(child);
+		}else{
+			tree_.add(last_,rhs);
+			last_ = tree_.root();
+		}
 	}
 	return *this;
 }

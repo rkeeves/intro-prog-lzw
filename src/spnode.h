@@ -1,7 +1,7 @@
 #ifndef LZW_SPNODE_H
 #define LZW_SPNODE_H
 
-#include <memory> // for smart pointers
+#include <memory>    // smart ptrs
 
 namespace lzw{
 class SPNode
@@ -11,36 +11,34 @@ public:
 
 	SPNode();
 	
-	~SPNode () = default;
+	~SPNode();
 
-	SPNode (const SPNode&) = delete;
+	SPNode (const SPNode&);
 
-	SPNode& operator= (const SPNode&) = delete;
+	SPNode& operator=(const SPNode&);
 	
-	SPNode (const SPNode&&) = delete;
+	SPNode(const SPNode&&);
 
-	SPNode& operator= (const SPNode&&) = delete;
+	SPNode& operator= (const SPNode&&);
 	
-// [ACCESSORS]
 public:
-
-	bool test(bool rhs) const;
-	
-	bool any() const;
+// [ACCESSORS]
 
 	bool leaf() const;
-	
+
 	std::shared_ptr<SPNode> get(bool rhs) const;
 	
 // [MODIFIERS]
-public:
-	std::shared_ptr<SPNode> set(bool rhs, const std::shared_ptr<SPNode>& sp);
+	
+	void set(bool rhs, std::shared_ptr<SPNode>&& sp);
+	
+	void reset(bool rhs);
 	
 // [STATE]
 private:
-	
+
 	std::shared_ptr<SPNode> lhs_;
-	
+
 	std::shared_ptr<SPNode> rhs_;
 }; /* SPNode */
 } /* end of namespace lzw */

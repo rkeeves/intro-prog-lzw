@@ -1,5 +1,5 @@
-#ifndef ARGS_H
-#define ARGS_H
+#ifndef LZW_ARGS_H
+#define LZW_ARGS_H
 
 #include <exception> 	// for exception throwing
 #include <string>			// string handling		
@@ -59,9 +59,6 @@ public:
 	
 	const std::vector<std::string> & operator[](const std::string &opt) const;
 
-// [MODIFIERS]
-public:
-
 // [INTERNALS]
 private:
 
@@ -69,9 +66,7 @@ private:
 
 	bool is_opt(const std::string &s) const;
 	
-// [STATE]
-private:
-	
+// [STATE]	
 	int argc;
 	
 	char **argv_head;
@@ -80,4 +75,4 @@ private:
 };
 
 } /* end of namespace lzw */
-#endif // ARGS_H
+#endif // LZW_ARGS_H

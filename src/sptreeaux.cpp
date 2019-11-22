@@ -1,6 +1,6 @@
 #include "sptreeaux.h"
 
-#include <iostream>	// for reading istream and writing ostream
+#include <iostream>	// for streams
 #include <cmath> 		// for sqrt
 
 namespace lzw{

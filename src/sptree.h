@@ -10,25 +10,22 @@ class SPTree
 public:
   SPTree();
   
-  virtual ~SPTree () = default; 
+  ~SPTree (); 
 
-  SPTree (const SPTree &) = delete;
+  SPTree(const SPTree &);
   
-  SPTree& operator= (const SPTree&) = delete;
+  SPTree& operator=(const SPTree&);
 	
-	SPTree (const SPTree &&) = delete;
+	SPTree(const SPTree &&);
 	
-	SPTree& operator= (const SPTree&&) = delete;
+	SPTree& operator=(const SPTree&&);
 	
-// [ACCESSORS]
 public:
-	
+// [ACCESSORS]
+
 	std::shared_ptr<SPNode> root() const;
-	
-	std::shared_ptr<SPNode> get(const std::shared_ptr<SPNode> &n, bool rhs) const;
 
 // [TRAVERSALS]
-public:
 	template<typename F>
 	void traverse_inorder(F f);
 	
@@ -42,12 +39,10 @@ public:
 	void traverse_leafs(F f);
 	
 // [MODIFIERS]
-public:
-	void set(std::shared_ptr<SPNode> &n, bool rhs, const std::shared_ptr<SPNode> &child);
+	void add(std::shared_ptr<SPNode> &n, bool rhs);
 
-// [INTERNALS]
 private:
-
+// [INTERNALS]
 	template<typename F>
 	void traverse_inorder(const std::shared_ptr<SPNode> &n, bool n_isrhs, int depth, F f);
 	
@@ -61,7 +56,6 @@ private:
 	void traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f);
 
 // [STATE]
-protected:
 	std::shared_ptr<SPNode> root_;
 };/* SPTree */
 
@@ -131,7 +125,7 @@ template<typename F>
 void SPTree::traverse_leafs(const std::shared_ptr<SPNode> &n, int depth, F f)
 {
 	if(n){
-		if(false == n->any()){
+		if(n->leaf()){
 			f(depth);
 		}else{
 			traverse_leafs(n->get(true),depth+1,f);
@@ -146,7 +140,7 @@ class SPTreeBuilder{
 public:
   SPTreeBuilder(SPTree &tree);
   
-  virtual ~SPTreeBuilder () = default; 
+  ~SPTreeBuilder () = default; 
 
   SPTreeBuilder (const SPTreeBuilder &) = delete;
   
@@ -156,8 +150,8 @@ public:
 	
 	SPTreeBuilder& operator= (const SPTreeBuilder&&) = delete;
 	
-// [MODIFIERS]
 public:
+// [MODIFIERS]
 	SPTreeBuilder& operator<< (bool rhs);
 	
 // [STATE]

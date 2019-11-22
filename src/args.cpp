@@ -10,6 +10,7 @@ Args::Args(int argc, char **argv) : argc(argc), argv_head(argv)
 	parse();
 }
 
+
 int Args::argcount() const { return argc; }
 
 
