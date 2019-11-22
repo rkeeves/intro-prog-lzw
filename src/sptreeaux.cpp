@@ -10,10 +10,10 @@ void get_leaf_count_max_depth(SPTree& tree, int &leafCount, int &maxDepth)
 	leafCount = 0;
 	maxDepth = 0;
 	auto leafDepthCounter = [&leafCount,&maxDepth](int depth)
-													{ 
-														leafCount++;
-														if(maxDepth < depth) { maxDepth = depth;}
-													};
+	{ 
+		leafCount++;
+		if(maxDepth < depth) { maxDepth = depth;}
+	};
 	tree.traverse_leafs(leafDepthCounter);
 }
 
@@ -23,9 +23,9 @@ void get_depth_mean(SPTree& tree, int leafCount, double &meanDepth)
 	meanDepth = 0.0;
 	if(leafCount == 0) return;
 	auto meanDepthCounter =[leafCount,&meanDepth](int depth)
-													{ 
-														meanDepth += static_cast<double>(depth)/leafCount;
-													};
+	{ 
+		meanDepth += static_cast<double>(depth)/leafCount;
+	};
 	tree.traverse_leafs(meanDepthCounter);
 }
 
@@ -35,10 +35,10 @@ void get_depth_variance(SPTree& tree, int leafCount, double meanDepth, double &v
 	varDepth= 0.0;
 	if(leafCount == 0) return;
 	auto varDepthCounter = [meanDepth,&varDepth](int depth)
-													{ 
-														double t = static_cast<double>(depth) - meanDepth;
-														varDepth += ( t * t);
-													};
+	{ 
+		double t = static_cast<double>(depth) - meanDepth;
+		varDepth += ( t * t);
+	};
 	tree.traverse_leafs(varDepthCounter);
 	if (leafCount - 1 > 0)
 		varDepth = std::sqrt (varDepth / (leafCount - 1));
@@ -50,14 +50,14 @@ void get_depth_variance(SPTree& tree, int leafCount, double meanDepth, double &v
 void print_tree_traversal(std::ostream &os, SPTree& tree, Traversal mode)
 { 
 	auto printer = [&os](bool n_isrhs, bool n_isleaf, int depth)
-										{ 
-											os 
-												<< std::string(3*(depth+1),'-')
-												<< ( (depth==0) ? '/' : ( (n_isrhs) ? '1' : '0' ) ) 
-												<< '('  << depth << ')' 
-												<< ( (n_isleaf) ? '*' : ' ' ) 
-												<< std::endl;
-										};
+	{ 
+		os 
+			<< std::string(3*(depth+1),'-')
+			<< ( (depth==0) ? '/' : ( (n_isrhs) ? '1' : '0' ) ) 
+			<< '('  << depth << ')' 
+			<< ( (n_isleaf) ? '*' : ' ' ) 
+			<< std::endl;
+	};
 	switch(mode)
 	{
 		case Traversal::Preorder:
